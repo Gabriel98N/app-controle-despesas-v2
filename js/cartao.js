@@ -1,6 +1,6 @@
 import Dom from "./dom.js";
 import outsideEvent from "./outside-event.js";
-import Data from "./data.js";
+import debounce from "./debounce.js";
 
 const dom = Dom();
 
@@ -159,9 +159,13 @@ function Cartao() {
 
   function fnTransacao(boxTransacao, estabelecimento, valor) {
     valor = typeof valor === "string" ? Number(valor.replace(",", ".")) : valor;
+
     boxTransacao.classList.add("box-transacao");
     boxTransacao.innerHTML = `
-      <div class="estabelecimento">${estabelecimento.toUpperCase()}</div>
+      <div class="estabelecimento">
+        <span class="traco" style="background-color: var(--cor-principal);"></span>
+        <p>${dom.firstLetter(estabelecimento)}</p>
+      </div>
       <div class="valor">
         <p>Valor</p>
         <span>${dom.conversorMoeda(valor, "PT-BR", "BRL")}</span>
@@ -247,11 +251,53 @@ function Cartao() {
     }
   }
 
+  function pagarFatura() {
+    const btnPagar = dom.el(".btn-pagar");
+    const modalPagamento = dom.el(".modal-pagar");
+    const inputPagar = dom.el("#pagar");
+    const textValor = dom.el(".texto-valor");
+    const btnRealPag = dom.el(".btn-pagamento");
+    const totalFatura = dom.el('[data-cartao="total"] p');
+
+    btnPagar.addEventListener("click", (e) => {
+      e.preventDefault();
+      modalPagamento.classList.add(active);
+      outsideEvent(
+        modalPagamento,
+        () => {
+          modalPagamento.classList.remove(active);
+        },
+        ["click"]
+      );
+    });
+
+    function handleKeyupPagar(e) {
+      const target = e.target;
+      const moeda = dom.conversorMoeda(target.value, "PT-BR", "BRL");
+      textValor.innerText = moeda;
+    }
+    inputPagar.addEventListener("keyup", debounce(handleKeyupPagar, 100));
+
+    btnRealPag.addEventListener("click", (e) => {
+      e.preventDefault();
+      const valorFatura = Number(
+        totalFatura.innerText.replace("R$", "").replace(",", ".")
+      );
+      const valueInput = inputPagar.value;
+      const valorPago = valorFatura - Number(valueInput);
+      if (valueInput) {
+        const valorFinal = dom.conversorMoeda(valorPago, "PT-BR", "BRL");
+        totalFatura.innerText = valorFinal;
+      }
+    });
+  }
+
   function init() {
     selecionarCartao();
     mostrarCartao();
     adicionarTransacao();
     mostrarTransacao();
+    pagarFatura();
   }
 
   return { init };

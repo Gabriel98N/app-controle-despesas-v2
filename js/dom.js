@@ -41,6 +41,10 @@ function Dom() {
     });
   }
 
+  function firstLetter(text) {
+    return `${text.charAt(0).toUpperCase()}${text.substr(1).toLowerCase()}`;
+  }
+
   return {
     el,
     els,
@@ -51,6 +55,7 @@ function Dom() {
     removeClass,
     toggleClass,
     conversorMoeda,
+    firstLetter,
   };
 }
 

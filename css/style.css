@@ -1,6 +1,7 @@
 @import url("navegacao-lateral.css");
 @import url("dados.css");
 @import url("cadastro.css");
+@import url("grafico.css");
 
 * {
   margin: 0;
@@ -34,23 +35,22 @@ body {
 }
 
 :root {
-  --cor-principal: #4b75f2;
-  --cor-secundaria: #6589f5;
+  --cor-principal: #a9ded8;
+  --cor-secundaria: #a2f0e7;
 
-  --bg1: #0e162a;
-  --bg2: #14223d;
-  --bg3: #223150;
-  --bg4: #192641;
+  --bg1: #171721;
+  --bg2: #14141c;
+  --bg3: #22222c;
+  --bg4: #14141c;
 
-  --cor1: #535d73;
-  --cor2: #8a93a6;
+  --cor1: #858587;
+  --cor2: #858587;
   --cor3: #fff;
   --cor4: #242d46;
   --green: #00ff5f;
 
-  --border-color: #2b2d33;
-  --border-color2: #303c53;
-  --border-color3: #1f283a;
+  --border-color: #2e2e3b;
+  --border-color2: #20202c;
 
   --gap: 1.25rem;
   --radius: 8px;

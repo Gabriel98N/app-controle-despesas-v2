@@ -55,10 +55,11 @@
 
 .cadastro button {
   background-color: var(--cor-principal);
-  color: #fff;
+  color: #111;
   text-transform: uppercase;
   font-weight: bold;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .confirmar:disabled {

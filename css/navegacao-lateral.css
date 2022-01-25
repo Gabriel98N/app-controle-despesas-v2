@@ -26,3 +26,8 @@
 .lista-lateral li a:hover {
   color: var(--cor3);
 }
+
+.lista-lateral a.selecionado,
+.lista-lateral a.selecionado:hover {
+  color: var(--cor-principal);
+}

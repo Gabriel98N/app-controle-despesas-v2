@@ -18,37 +18,49 @@
     <div class="area-conteudo">
       <div class="container-dados">
         <div class="box-dados container">
-          <h2>Dados</h2>
-          <div class="header-dados">
-            <div class="column3" data-cartao="instituicao">
-              <h3>Cartão</h3>
-              <p>--</p>
-            </div>
-            <div class="column3" data-cartao="vencimento">
-              <h3>Vencimento</h3>
-              <p>--</p>
-              <span class="aviso-venc">atrasado</span>
-            </div>
-            <div class="column3" data-cartao="total">
-              <h3>Total à pagar</h3>
-              <p>R$ 0,00</p>
-            </div>
-            <div class="column3" data-cartao="transacao">
-              <button class="adicionar-transacao" disabled>
-                <i class="material-icons">add</i>
-                <span>Seleciona um banco para adicionar uma conta</span>
-              </button>
-              <form class="form-transacao">
-                <h2>Adicionar conta</h2>
-                <input type="text" name="estabelecimento" id="estabelecimento" required placeholder="Onde você comprou?" autocomplete="off">
-                <input type="text" name="valor" id="valor" required placeholder="Valor" autocomplete="off">
-                <button class="adicionar" disabled>Adicionar</button>
-              </form>
+          <div class="box-header">
+            <h2>Dados</h2>
+            <div class="header-dados">
+              <div class="column3" data-cartao="instituicao">
+                <h3>Cartão</h3>
+                <p>--</p>
+              </div>
+              <div class="column3" data-cartao="vencimento">
+                <h3>Vencimento</h3>
+                <p>--</p>
+                <span class="aviso-venc">atrasado</span>
+              </div>
+              <div class="column3" data-cartao="total">
+                <h3>Total à pagar</h3>
+                <p>R$ 0,00</p>
+                <a href="#" class="btn-pagar">Pagar</a>
+                <div class="modal-pagar">
+                  <div class="box-input-pagamento">
+                    <span>R$</span>
+                    <input type="number" id="pagar" placeholder="Quanto você quer pagar?">
+                  </div>
+                  <p class="texto-valor">R$ 0,00</p>
+                  <button class="btn-pagamento">Realizar pagamento</button>
+                </div>
+              </div>
+              <div class="column3" data-cartao="transacao">
+                <button class="adicionar-transacao" disabled>
+                  <i class="material-icons">add</i>
+                  <span>Seleciona um banco para adicionar uma conta</span>
+                </button>
+                <form class="form-transacao">
+                  <h2>Adicionar conta</h2>
+                  <input type="text" name="estabelecimento" id="estabelecimento" required placeholder="Onde você comprou?" autocomplete="off">
+                  <input type="text" name="valor" id="valor" required placeholder="Valor" autocomplete="off">
+                  <button class="adicionar" disabled>Adicionar</button>
+                </form>
+              </div>
             </div>
           </div>
           <h2>Transações</h2>
-          <div class="container-tabela">
-
+          <div class="container-tabela"></div>
+          <div class="container-grafico">
+            <h2>Gráficos</h2>
           </div>
         </div>
         <div class="aside-dados">
@@ -87,7 +99,7 @@
         </a>
         <ul class="lista-lateral">
           <li>
-            <a href="/">
+            <a href="/" class="selecionado">
               <i class="material-icons">dashboard</i>
               <p>Painel</p>
             </a>
