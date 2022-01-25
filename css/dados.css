@@ -294,10 +294,6 @@
   cursor: not-allowed;
 }
 
-.container-tabela {
-  /* border: 1px solid red; */
-}
-
 .box-transacao {
   display: flex;
   align-items: center;

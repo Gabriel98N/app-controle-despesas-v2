@@ -35,12 +35,10 @@ function Dom() {
   }
 
   function conversorMoeda(numero, lang, type) {
-    console.log(numero);
-
-    // return Number(numero).toLocaleString(lang, {
-    //   style: "currency",
-    //   currency: type,
-    // });
+    return Number(numero).toLocaleString(lang, {
+      style: "currency",
+      currency: type,
+    });
   }
 
   return {

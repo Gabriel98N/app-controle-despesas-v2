@@ -22,5 +22,17 @@
     "bandeira": "Visa",
     "logo_bandeira": "img/icons/visa.png",
     "cor_cartao": "#00FF5F"
+  },
+  {
+    "nome_inst": "Santander Fx",
+    "bandeira": "Visa",
+    "logo_bandeira": "img/icons/visa.png",
+    "cor_cartao": "#dc0000"
+  },
+  {
+    "nome_inst": "Will bank",
+    "bandeira": "Master Card",
+    "logo_bandeira": "img/icons/master-card.png",
+    "cor_cartao": "#FFD900"
   }
 ]

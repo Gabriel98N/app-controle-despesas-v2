@@ -11,7 +11,7 @@ function Cartao() {
   const select = dom.el(".select");
   const active = "active";
   const btnAdicionar = dom.el(".adicionar-transacao");
-  const textBtnTras = btnAdicionar.querySelector("span");
+  const textBtnTras = dom.el(".adicionar-transacao span");
 
   const storageTransacao = JSON.parse(localStorage.getItem("transacao"));
   const arrTransacao = storageTransacao ? storageTransacao : [];
@@ -158,6 +158,7 @@ function Cartao() {
   }
 
   function fnTransacao(boxTransacao, estabelecimento, valor) {
+    valor = typeof valor === "string" ? Number(valor.replace(",", ".")) : valor;
     boxTransacao.classList.add("box-transacao");
     boxTransacao.innerHTML = `
       <div class="estabelecimento">${estabelecimento.toUpperCase()}</div>
@@ -212,34 +213,36 @@ function Cartao() {
     const formTransacao = dom.el(".form-transacao");
     const adicionar = dom.el(".adicionar");
 
-    btnAdicionar.addEventListener("click", (e) => {
-      e.preventDefault();
-      formTransacao.classList.add(active);
-      outsideEvent(
-        formTransacao,
-        () => {
-          formTransacao.classList.remove(active);
-        },
-        ["click"]
-      );
-    });
-
-    adicionar.addEventListener("click", (e) => {
-      e.preventDefault();
-      const boxTransacao = dom.create("div");
-      const idCartao = cartao.dataset.id;
-
-      fnTransacao(boxTransacao, estabelecimento.value, valor.value);
-      containerTabela.appendChild(boxTransacao);
-
-      arrTransacao.push({
-        estabelecimento: estabelecimento.value,
-        valor: valor.value.replace(",", "."),
-        id: idCartao,
+    if (btnAdicionar) {
+      btnAdicionar.addEventListener("click", (e) => {
+        e.preventDefault();
+        formTransacao.classList.add(active);
+        outsideEvent(
+          formTransacao,
+          () => {
+            formTransacao.classList.remove(active);
+          },
+          ["click"]
+        );
       });
 
-      localStorage.setItem("transacao", JSON.stringify(arrTransacao));
-    });
+      adicionar.addEventListener("click", (e) => {
+        e.preventDefault();
+        const boxTransacao = dom.create("div");
+        const idCartao = cartao.dataset.id;
+
+        fnTransacao(boxTransacao, estabelecimento.value, valor.value);
+        containerTabela.appendChild(boxTransacao);
+
+        arrTransacao.push({
+          estabelecimento: estabelecimento.value,
+          valor: valor.value.replace(",", "."),
+          id: idCartao,
+        });
+
+        localStorage.setItem("transacao", JSON.stringify(arrTransacao));
+      });
+    }
   }
 
   function init() {
