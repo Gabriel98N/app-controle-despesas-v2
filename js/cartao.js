@@ -97,7 +97,6 @@ function Cartao() {
 
   function init() {
     selecionarCartao();
-    selecionarDados();
   }
 
   return { init };
