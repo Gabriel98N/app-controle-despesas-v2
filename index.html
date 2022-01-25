@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Controle financeiro</title>
+</head>
+
+<body>
+  <div class="estrutura">
+    <div class="area-conteudo">
+      <div class="container-dados">
+        <div class="box-dados container">
+          <h2>Dados</h2>
+          <div class="header-dados">
+            <div class="column3" data-cartao="instituicao">
+              <h3>Cartão</h3>
+              <p>--</p>
+            </div>
+            <div class="column3" data-cartao="vencimento">
+              <h3>Vencimento</h3>
+              <p>--</p>
+              <span class="aviso-venc">atrasado</span>
+            </div>
+            <div class="column3" data-cartao="total">
+              <h3>Total à pagar</h3>
+              <p>--</p>
+            </div>
+            <div class="column3" data-cartao="transacao">
+              <button class="adicionar-transacao" disabled>
+                <i class="material-icons">add</i>
+                <span>Seleciona um banco para habilitar</span>
+              </button>
+              <form class="form-transacao">
+                <h2>Adicionar conta</h2>
+                <input type="text" name="trans-inst" id="trans-inst" required placeholder="Onde você comprou?" autocomplete="off">
+                <input type="text" name="valor" id="valor" required placeholder="Valor" autocomplete="off">
+                <button class="adicionar">Adicionar</button>
+              </form>
+            </div>
+          </div>
+          <h2>Transações</h2>
+          <div class="container-tabela">
+
+          </div>
+        </div>
+        <div class="aside-dados">
+          <h3>Cartão</h3>
+          <div class="card">
+            <div class="box-cartao logo-cartao">
+              <div class="img-bandeira">
+                <img src="" alt="">
+              </div>
+              <p>--</p>
+            </div>
+            <div class="box-cartao dados-cartao">
+              <p>--</p>
+              <div class="vencimento">
+                <h4>Venc</h4>
+                <p>--</p>
+              </div>
+            </div>
+          </div>
+          <div class="box-select-banco">
+            <button class="btn-cartao" disabled>Selecionar banco</button>
+            <div class="select">
+              <!--Option-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navegacao-lateral">
+      <nav class="nav-lateral">
+        <a href="/" class="logo">
+          <h2>
+            <i class="material-icons">payments</i>
+            <span>Score</span>
+          </h2>
+        </a>
+        <ul class="lista-lateral">
+          <li>
+            <a href="/">
+              <i class="material-icons">dashboard</i>
+              <p>Painel</p>
+            </a>
+          </li>
+          <li>
+            <a href="cartoes.html">
+              <i class="material-icons">credit_card</i>
+              <p>Cartões</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <script type="module" src="js/script.js"></script>
+
+</body>
+
+</html>

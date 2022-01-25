@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Controle financeiro</title>
+</head>
+
+<body>
+  <div class="estrutura">
+    <div class="area-conteudo">
+      <div class="container-cadastro">
+        <div class="container-formulario">
+          <div class="box-formulario container">
+            <form class="cadastro">
+              <h3>Cadastrar cartão</h3>
+              <div class="input">
+                <select name="instituicao" id="instituicao" required autocomplete="off">
+                  <option value="" selected disabled></option>
+                </select>
+                <label class="label">Instituição</label>
+              </div>
+              <div class="input">
+                <input type="text" name="nome" id="nome" required autocomplete="off">
+                <label class="label">Nome</label>
+              </div>
+              <div class="input">
+                <input type="number" name="vencimento" id="vencimento" required autocomplete="off">
+                <label class="label">Vencimento</label>
+              </div>
+              <button class="confirmar">Confirmar</button>
+            </form>
+          </div>
+        </div>
+        <div class="container-lista-cartao container">
+          <h3>Cartões</h3>
+          <div class="lista-cartao">
+            <!-- Cartão -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navegacao-lateral">
+      <nav class="nav-lateral">
+        <a href="/" class="logo">
+          <h2>
+            <i class="material-icons">payments</i>
+            <span>Score</span>
+          </h2>
+        </a>
+        <ul class="lista-lateral">
+          <li>
+            <a href="/">
+              <i class="material-icons">dashboard</i>
+              <p>Painel</p>
+            </a>
+          </li>
+          <li>
+            <a href="cartoes.html">
+              <i class="material-icons">credit_card</i>
+              <p>Cartões</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <script type="module" src="js/script.js"></script>
+
+</body>
+
+</html>

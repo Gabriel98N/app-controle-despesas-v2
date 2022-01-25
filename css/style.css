@@ -1,0 +1,80 @@
+@import url("navegacao-lateral.css");
+@import url("dados.css");
+@import url("cadastro.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+a,
+label,
+span {
+  display: block;
+  text-decoration: none;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg1);
+}
+
+:root {
+  --cor-principal: #4b75f2;
+  --cor-secundaria: #6589f5;
+
+  --bg1: #0e162a;
+  --bg2: #14223d;
+
+  --cor1: #535d73;
+  --cor2: #8a93a6;
+  --cor3: #fff;
+  --cor4: #242d46;
+  --green: #00ff5f;
+
+  --border-color: #2b2d33;
+  --border-color2: #303c53;
+
+  --gap: 1.25rem;
+  --radius: 8px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.estrutura {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding: var(--gap);
+}
+
+.area-conteudo {
+  grid-column: 2;
+}
+
+.navegacao-lateral {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: var(--gap);
+}
