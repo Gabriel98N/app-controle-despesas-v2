@@ -5,13 +5,16 @@
 }
 
 .aside-dados {
+  align-self: flex-start;
   background-color: var(--bg2);
-  height: 100%;
   border-radius: var(--radius);
   padding: var(--gap);
   display: flex;
   flex-direction: column;
   gap: var(--gap);
+  position: sticky;
+  top: 0;
+  right: 0;
 }
 
 .aside-dados h3 {
@@ -299,7 +302,7 @@
   align-items: center;
   justify-content: space-between;
   color: var(--cor2);
-  font-size: 0.75rem;
+  font-size: 0.845rem;
   padding: var(--gap) 0;
 }
 

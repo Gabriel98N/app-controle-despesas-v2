@@ -65,7 +65,7 @@ body {
 .estrutura {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 180px 1fr;
   padding: var(--gap);
 }
 
@@ -74,7 +74,7 @@ body {
 }
 
 .navegacao-lateral {
-  width: 200px;
+  width: 180px;
   position: fixed;
   top: 0;
   left: 0;
