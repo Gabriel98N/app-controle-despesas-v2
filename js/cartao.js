@@ -190,9 +190,11 @@ function Cartao() {
       const boxTransacao = dom.create("div");
       fnTransacao(boxTransacao, estabelecimento, valor);
 
-      if (cartao.dataset.id === id) {
-        containerTabela.appendChild(boxTransacao);
-        valorTotalTransacao();
+      if (cartao) {
+        if (cartao.dataset.id === id) {
+          containerTabela.appendChild(boxTransacao);
+          valorTotalTransacao();
+        }
       }
 
       options.forEach((option, index) => {
