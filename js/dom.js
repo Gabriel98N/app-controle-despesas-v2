@@ -34,6 +34,15 @@ function Dom() {
     return element;
   }
 
+  function conversorMoeda(numero, lang, type) {
+    console.log(numero);
+
+    // return Number(numero).toLocaleString(lang, {
+    //   style: "currency",
+    //   currency: type,
+    // });
+  }
+
   return {
     el,
     els,
@@ -43,6 +52,7 @@ function Dom() {
     addClass,
     removeClass,
     toggleClass,
+    conversorMoeda,
   };
 }
 

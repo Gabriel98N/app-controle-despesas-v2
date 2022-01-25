@@ -39,6 +39,8 @@ body {
 
   --bg1: #0e162a;
   --bg2: #14223d;
+  --bg3: #223150;
+  --bg4: #192641;
 
   --cor1: #535d73;
   --cor2: #8a93a6;
@@ -48,6 +50,7 @@ body {
 
   --border-color: #2b2d33;
   --border-color2: #303c53;
+  --border-color3: #1f283a;
 
   --gap: 1.25rem;
   --radius: 8px;

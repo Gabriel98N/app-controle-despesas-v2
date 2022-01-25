@@ -187,11 +187,11 @@
   right: 10px;
   background-color: var(--cor-principal);
   color: #fff;
-  font-size: 0.625rem;
-  text-transform: uppercase;
+  font-size: 0.75rem;
   padding: 5px;
   border-radius: 3px;
   display: none;
+  font-weight: bold;
 }
 
 [data-cartao="transacao"] {
@@ -209,6 +209,7 @@
   border: 0;
   outline: none;
   cursor: pointer;
+  padding: var(--gap);
 }
 
 [data-cartao="transacao"] .adicionar-transacao:disabled {
@@ -230,10 +231,10 @@
 .form-transacao {
   position: absolute;
   top: 120px;
-  right: 0;
+  left: 0;
   width: 450px;
   padding: var(--gap);
-  background-color: var(--bg2);
+  background-color: var(--bg3);
   box-shadow: var(--box-shadow);
   border-radius: var(--radius);
   display: flex;
@@ -243,12 +244,13 @@
   visibility: hidden;
   opacity: 0;
   transition: 0.3s;
-  transform: translate3d(30px, 0, 0);
+  transform: translate3d(0, -15px, 0);
 }
 
 .form-transacao.active {
   visibility: visible;
   opacity: 1;
+  top: 100px;
   transform: translate3d(0, 0, 0);
 }
 
@@ -260,14 +262,14 @@
   border-bottom: 10px solid var(--bg2);
   position: absolute;
   top: -20px;
-  right: 20px;
+  left: 20px;
 }
 
 .form-transacao input,
 .form-transacao button {
   width: 100%;
   height: 45px;
-  background-color: var(--bg1);
+  background-color: var(--bg4);
   border: 0;
   outline: none;
   border-radius: var(--radius);
@@ -285,4 +287,43 @@
   color: #fff;
   background-color: var(--cor-principal);
   cursor: pointer;
+}
+
+.form-transacao button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.container-tabela {
+  /* border: 1px solid red; */
+}
+
+.box-transacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--cor2);
+  font-size: 0.75rem;
+  padding: var(--gap) 0;
+}
+
+.box-transacao + .box-transacao {
+  border-top: 1px solid var(--border-color3);
+}
+
+.box-transacao div {
+  flex: 1;
+}
+
+.box-transacao div span {
+  color: var(--cor2);
+}
+
+.box-transacao p {
+  color: var(--cor1);
+  margin-bottom: 5px;
+}
+
+.box-transacao div:nth-child(2) {
+  text-align: right;
 }
