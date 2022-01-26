@@ -5,7 +5,6 @@
 }
 
 .container-formulario {
-  margin-top: 1.25rem;
   padding: 3.75rem 1.25rem;
   background-color: var(--bg2);
   border-radius: var(--radius);
@@ -83,7 +82,17 @@
 .cadastro input:valid ~ .label,
 .cadastro select:valid ~ .label {
   top: -9px;
-  padding: 3px;
+  padding: 5px;
+}
+
+.cadastro input:focus ~ .label,
+.cadastro select:focus ~ .label {
+  color: var(--cor3);
+}
+
+.cadastro input:focus,
+.cadastro select:focus {
+  border-color: var(--cor-principal);
 }
 
 .container-lista-cartao h3 {
@@ -99,4 +108,10 @@
 
 .lista-cartao .card {
   height: 180px;
+}
+
+@media (max-width: 1200px) {
+  .container-cadastro {
+    padding: var(--gap);
+  }
 }

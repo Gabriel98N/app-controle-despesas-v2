@@ -35,22 +35,21 @@ body {
 }
 
 :root {
-  --cor-principal: #a9ded8;
-  --cor-secundaria: #a2f0e7;
+  --cor-principal: #937cfe;
+  --cor-secundaria: #8368fc;
 
-  --bg1: #171721;
-  --bg2: #14141c;
-  --bg3: #22222c;
-  --bg4: #14141c;
+  --bg1: #0a0d1e;
+  --bg2: #1a1d2e;
+  --bg3: #2c3340;
 
-  --cor1: #858587;
-  --cor2: #858587;
-  --cor3: #fff;
+  --cor1: #7f7f87;
+  --cor2: #7f7f87;
+  --cor3: #e1e2e4;
   --cor4: #242d46;
   --green: #00ff5f;
 
-  --border-color: #2e2e3b;
-  --border-color2: #20202c;
+  --border-color: #1a1d2e;
+  --border-color2: #2f3346;
 
   --gap: 1.25rem;
   --radius: 8px;
@@ -80,4 +79,29 @@ body {
   left: 0;
   height: 100%;
   padding: var(--gap);
+}
+
+@media (max-width: 1200px) {
+  .estrutura {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 100px;
+    padding: 0;
+  }
+
+  .navegacao-lateral {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    padding: var(--gap);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg2);
+  }
+
+  .area-conteudo {
+    grid-column: 1;
+    grid-row: 1;
+  }
 }

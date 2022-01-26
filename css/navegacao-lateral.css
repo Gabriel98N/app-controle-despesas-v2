@@ -31,3 +31,28 @@
 .lista-lateral a.selecionado:hover {
   color: var(--cor-principal);
 }
+
+@media (max-width: 1200px) {
+  .nav-lateral {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap);
+    background-color: var(--bg3);
+    border-radius: var(--radius);
+  }
+
+  .logo {
+    margin: 0;
+  }
+
+  .lista-lateral {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+  }
+
+  .lista-lateral li a p {
+    display: none;
+  }
+}

@@ -259,37 +259,26 @@ function Cartao() {
     const btnRealPag = dom.el(".btn-pagamento");
     const totalFatura = dom.el('[data-cartao="total"] p');
 
-    btnPagar.addEventListener("click", (e) => {
-      e.preventDefault();
-      modalPagamento.classList.add(active);
-      outsideEvent(
-        modalPagamento,
-        () => {
-          modalPagamento.classList.remove(active);
-        },
-        ["click"]
-      );
-    });
-
     function handleKeyupPagar(e) {
       const target = e.target;
       const moeda = dom.conversorMoeda(target.value, "PT-BR", "BRL");
       textValor.innerText = moeda;
     }
-    inputPagar.addEventListener("keyup", debounce(handleKeyupPagar, 100));
 
-    btnRealPag.addEventListener("click", (e) => {
-      e.preventDefault();
-      const valorFatura = Number(
-        totalFatura.innerText.replace("R$", "").replace(",", ".")
-      );
-      const valueInput = inputPagar.value;
-      const valorPago = valorFatura - Number(valueInput);
-      if (valueInput) {
-        const valorFinal = dom.conversorMoeda(valorPago, "PT-BR", "BRL");
-        totalFatura.innerText = valorFinal;
-      }
-    });
+    if (btnPagar) {
+      btnPagar.addEventListener("click", (e) => {
+        e.preventDefault();
+        modalPagamento.classList.add(active);
+        outsideEvent(
+          modalPagamento,
+          () => {
+            modalPagamento.classList.remove(active);
+          },
+          ["click"]
+        );
+      });
+      inputPagar.addEventListener("keyup", debounce(handleKeyupPagar, 100));
+    }
   }
 
   function init() {
