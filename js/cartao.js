@@ -13,11 +13,13 @@ function Cartao() {
   const btnAdicionar = dom.el(".adicionar-transacao");
   const textBtnTras = dom.el(".adicionar-transacao span");
 
+  const containerTabela = dom.el(".container-tabela");
+
   const storageTransacao = JSON.parse(localStorage.getItem("transacao"));
   const arrTransacao = storageTransacao ? storageTransacao : [];
-  const estabelecimento = dom.el("#estabelecimento");
-  const valor = dom.el("#valor");
-  const containerTabela = dom.el(".container-tabela");
+
+  const storageSaldo = JSON.parse(localStorage.getItem("saldo"));
+  const arrSaldo = storageSaldo ? storageSaldo : [];
 
   function mostrarDados(id) {
     const nomeCartao = dom.el('[data-cartao="instituicao"] p');
@@ -37,7 +39,7 @@ function Cartao() {
     const vencDia = Number(venc_dia);
     if (diaAtual > vencDia) {
       avisoVenc.innerText = "Atrasado";
-      avisoVenc.style.backgroundColor = "#ED4E4B";
+      avisoVenc.style.backgroundColor = "#dc0000";
     } else if (diaAtual === vencDia) {
       avisoVenc.innerText = "Vence hoje";
       avisoVenc.style.backgroundColor = "";
@@ -157,136 +159,95 @@ function Cartao() {
     }
   }
 
-  function fnTransacao(boxTransacao, estabelecimento, valor) {
-    valor = typeof valor === "string" ? Number(valor.replace(",", ".")) : valor;
-
-    boxTransacao.classList.add("box-transacao");
-    boxTransacao.innerHTML = `
-      <div class="estabelecimento">
-        <span class="traco" style="background-color: var(--cor-principal);"></span>
-        <p>${dom.firstLetter(estabelecimento)}</p>
-      </div>
-      <div class="valor">
-        <p>Valor</p>
-        <span>${dom.conversorMoeda(valor, "PT-BR", "BRL")}</span>
-      </div>
-    `;
-  }
-
-  function valorTotalTransacao() {
-    const valorTotal = dom.el('[data-cartao="total"] p');
-    const total = arrTransacao
-      .filter(({ valor, id }) => {
-        if (id === cartao.dataset.id) {
-          return valor;
-        }
-      })
-      .reduce((ac, { valor }) => {
-        return ac + Number(valor);
-      }, 0);
-
-    valorTotal.innerText = dom.conversorMoeda(total, "PT-BR", "BRL");
-  }
-
-  function mostrarTransacao() {
-    const options = dom.els(".option");
-    arrTransacao.forEach(({ estabelecimento, valor, id }) => {
-      const boxTransacao = dom.create("div");
-      fnTransacao(boxTransacao, estabelecimento, valor);
-
-      if (cartao) {
-        if (cartao.dataset.id === id) {
-          containerTabela.appendChild(boxTransacao);
-          valorTotalTransacao();
-        }
-      }
-
-      options.forEach((option, index) => {
-        option.addEventListener("click", () => {
-          containerTabela.appendChild(boxTransacao);
-          valorTotalTransacao();
-          if (index === Number(id)) {
-            boxTransacao.style.display = "flex";
-          } else {
-            boxTransacao.style.display = "none";
-          }
-        });
-      });
-    });
-  }
-
-  function adicionarTransacao() {
-    const formTransacao = dom.el(".form-transacao");
-    const adicionar = dom.el(".adicionar");
-
-    if (btnAdicionar) {
-      btnAdicionar.addEventListener("click", (e) => {
+  function mostrarCard(btn, element, classe) {
+    const button = dom.el(btn);
+    const card = dom.el(`[data-card="${element}"]`);
+    if (button) {
+      button.addEventListener("click", (e) => {
         e.preventDefault();
-        formTransacao.classList.add(active);
+        card.classList.add(classe);
         outsideEvent(
-          formTransacao,
+          card,
           () => {
-            formTransacao.classList.remove(active);
+            card.classList.remove(classe);
           },
           ["click"]
         );
       });
+    }
+  }
 
+  function fnTransacao(transacao, texto, valor, type) {
+    transacao.classList.add("box-transacao");
+    transacao.innerHTML = `
+      <div class="estabelecimento">
+        <span class="${type}"></span>
+        <p>${dom.firstLetter(texto)}</p>
+      </div>
+      <div class="valor">
+        <p>Valor</p>
+        ${
+          type === "neg"
+            ? `<span>-${dom.conversorMoeda(valor, "PT-BR", "BRL")}</span>`
+            : `<span>+${dom.conversorMoeda(valor, "PT-BR", "BRL")}</span>`
+        }
+      </div>
+    `;
+    return transacao;
+  }
+
+  function adicionarConta() {
+    const adicionar = dom.el(".adicionar");
+    const estabelecimento = dom.el("#estabelecimento");
+    const valor = dom.el("#valor");
+    const idCartao = cartao ? cartao.dataset.id : "";
+
+    if (adicionar) {
       adicionar.addEventListener("click", (e) => {
         e.preventDefault();
         const boxTransacao = dom.create("div");
-        const idCartao = cartao.dataset.id;
-
-        fnTransacao(boxTransacao, estabelecimento.value, valor.value);
+        fnTransacao(boxTransacao, estabelecimento.value, valor.value, "neg");
         containerTabela.appendChild(boxTransacao);
 
         arrTransacao.push({
           estabelecimento: estabelecimento.value,
-          valor: valor.value.replace(",", "."),
+          valor: valor.value,
           id: idCartao,
         });
-
         localStorage.setItem("transacao", JSON.stringify(arrTransacao));
       });
     }
   }
 
-  function pagarFatura() {
-    const btnPagar = dom.el(".btn-pagar");
-    const modalPagamento = dom.el(".modal-pagar");
-    const inputPagar = dom.el("#pagar");
-    const textValor = dom.el(".texto-valor");
-    const btnRealPag = dom.el(".btn-pagamento");
-    const totalFatura = dom.el('[data-cartao="total"] p');
+  function adicionarDinheiro() {
+    const btnDepositar = dom.el(".btn-depositar");
+    const inputDeposito = dom.el("#deposito");
 
-    function handleKeyupPagar(e) {
-      const target = e.target;
-      const moeda = dom.conversorMoeda(target.value, "PT-BR", "BRL");
-      textValor.innerText = moeda;
-    }
-
-    if (btnPagar) {
-      btnPagar.addEventListener("click", (e) => {
+    if (btnDepositar) {
+      btnDepositar.addEventListener("click", (e) => {
         e.preventDefault();
-        modalPagamento.classList.add(active);
-        outsideEvent(
-          modalPagamento,
-          () => {
-            modalPagamento.classList.remove(active);
-          },
-          ["click"]
+        const boxTransacao = dom.create("div");
+        fnTransacao(
+          boxTransacao,
+          "Depósito realizado",
+          inputDeposito.value,
+          "pos"
         );
+        containerTabela.appendChild(boxTransacao);
+        arrSaldo.push(inputDeposito.value);
+        localStorage.setItem("saldo", JSON.stringify(arrSaldo));
       });
-      inputPagar.addEventListener("keyup", debounce(handleKeyupPagar, 100));
     }
   }
 
   function init() {
     selecionarCartao();
     mostrarCartao();
-    adicionarTransacao();
-    mostrarTransacao();
-    pagarFatura();
+    adicionarConta();
+    adicionarDinheiro();
+
+    mostrarCard(".adicionar-transacao", "transacao", "active");
+    mostrarCard(".btn-saldo", "saldo", "active");
   }
 
   return { init };

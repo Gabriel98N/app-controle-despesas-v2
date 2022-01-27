@@ -49,7 +49,7 @@ function Cadastro() {
         <p>${nome_banco}</p>
       </div>
       <div class="box-cartao dados-cartao">
-        <p>${nome_impresso.toUpperCase()}</p>
+        <p>${nome_impresso}</p>
         <div class="vencimento">
           <h4>Venc</h4>
           <p>${dia_venc}</p>
@@ -62,6 +62,7 @@ function Cadastro() {
     e.preventDefault();
     const dados = await dadosJSON();
     const card = dom.create("div");
+
     const nomeImprVal = nomeImpresso.value.toUpperCase();
     const vencDiaVal = vencDia.value;
 

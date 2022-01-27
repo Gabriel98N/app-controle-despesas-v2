@@ -47,6 +47,7 @@ body {
   --cor3: #e1e2e4;
   --cor4: #242d46;
   --green: #00ff5f;
+  --red: #dc0000;
 
   --border-color: #1a1d2e;
   --border-color2: #2f3346;
@@ -79,6 +80,7 @@ body {
   left: 0;
   height: 100%;
   padding: var(--gap);
+  z-index: 1000;
 }
 
 @media (max-width: 1200px) {
