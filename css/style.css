@@ -2,6 +2,7 @@
 @import url("dados.css");
 @import url("cadastro.css");
 @import url("grafico.css");
+@import url("loader.css");
 
 * {
   margin: 0;
@@ -38,9 +39,9 @@ body {
   --cor-principal: #937cfe;
   --cor-secundaria: #8368fc;
 
-  --bg1: #0a0d1e;
-  --bg2: #1a1d2e;
-  --bg3: #232638;
+  --bg1: #1a1927;
+  --bg2: #272633;
+  --bg3: #151420;
 
   --cor1: #7f7f87;
   --cor2: #7f7f87;
@@ -49,8 +50,8 @@ body {
   --green: #00ff5f;
   --red: #dc0000;
 
-  --border-color: #1a1d2e;
-  --border-color2: #2f3346;
+  --border-color: #1a1927;
+  --border-color2: #3a3947;
 
   --gap: 1.25rem;
   --radius: 8px;

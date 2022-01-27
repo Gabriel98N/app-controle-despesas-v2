@@ -137,7 +137,6 @@ function Cartao() {
 
   function mostrarCartao() {
     const id = JSON.parse(localStorage.getItem("id"));
-
     if (id === 0 || id > 0) {
       const {
         nome_inst,
@@ -200,11 +199,11 @@ function Cartao() {
     const adicionar = dom.el(".adicionar");
     const estabelecimento = dom.el("#estabelecimento");
     const valor = dom.el("#valor");
-    const idCartao = cartao ? cartao.dataset.id : "";
 
     if (adicionar) {
       adicionar.addEventListener("click", (e) => {
         e.preventDefault();
+        const idCartao = cartao ? cartao.dataset.id : "";
         const boxTransacao = dom.create("div");
         fnTransacao(boxTransacao, estabelecimento.value, valor.value, "neg");
         containerTabela.appendChild(boxTransacao);
@@ -233,11 +232,47 @@ function Cartao() {
           inputDeposito.value,
           "pos"
         );
-        containerTabela.appendChild(boxTransacao);
+        containerTabela.prepend(boxTransacao);
         arrSaldo.push(inputDeposito.value);
         localStorage.setItem("saldo", JSON.stringify(arrSaldo));
+        inputDeposito.value = "";
+        inputDeposito.focus();
+        dom.el(".box-deposito p").innerText = "R$";
       });
     }
+
+    inputDeposito.addEventListener("keyup", (e) => {
+      const target = e.target;
+      const valorDep = dom.conversorMoeda(target.value, "PT-BR", "BRL");
+      dom.el(".box-deposito p").innerText = valorDep;
+    });
+  }
+
+  function mostrarConta() {
+    arrTransacao.forEach(({ estabelecimento, valor, id }) => {
+      if (id == cartao.dataset.id) {
+        const boxTransacao = dom.create("div");
+        containerTabela.prepend(boxTransacao);
+        fnTransacao(boxTransacao, estabelecimento, valor, "neg");
+      }
+
+      dom.els(".option").forEach((option) => {
+        option.addEventListener("click", () => {
+          dom.el("[data-loader='geral']").classList.add(active);
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        });
+      });
+    });
+  }
+
+  function mostrarDinheiro() {
+    arrSaldo.forEach((buy) => {
+      const boxTransacao = dom.create("div");
+      containerTabela.prepend(boxTransacao);
+      fnTransacao(boxTransacao, "Despósito realizado", buy, "pos");
+    });
   }
 
   function init() {
@@ -245,6 +280,9 @@ function Cartao() {
     mostrarCartao();
     adicionarConta();
     adicionarDinheiro();
+
+    mostrarConta();
+    mostrarDinheiro();
 
     mostrarCard(".adicionar-transacao", "transacao", "active");
     mostrarCard(".btn-saldo", "saldo", "active");
