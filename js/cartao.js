@@ -5,158 +5,11 @@ import debounce from "./debounce.js";
 const dom = Dom();
 
 function Cartao() {
-  const cartao = dom.el(".aside-dados .card");
-  const btnSelecionar = dom.el(".btn-cartao");
   const storageDados = JSON.parse(localStorage.getItem("dados"));
-  const select = dom.el(".select");
   const active = "active";
-  const btnAdicionar = dom.el(".adicionar-transacao");
-  const textBtnTras = dom.el(".adicionar-transacao span");
-
-  const containerTabela = dom.el(".container-tabela");
 
   const storageTransacao = JSON.parse(localStorage.getItem("transacao"));
   const arrTransacao = storageTransacao ? storageTransacao : [];
-
-  const storageSaldo = JSON.parse(localStorage.getItem("saldo"));
-  const arrSaldo = storageSaldo ? storageSaldo : [];
-
-  function mostrarDados(id) {
-    const nomeCartao = dom.el('[data-cartao="instituicao"] p');
-    const venc = dom.el('[data-cartao="vencimento"] p');
-    const avisoVenc = dom.el(".aviso-venc");
-
-    const { nome_inst, venc_dia } = storageDados[id];
-    const diaAtual = new Date().getDate();
-
-    nomeCartao.innerText = nome_inst;
-    venc.innerText = venc_dia;
-
-    avisoVenc.style.display = "block";
-    btnAdicionar.disabled = false;
-    textBtnTras.style.display = "none";
-
-    const vencDia = Number(venc_dia);
-    if (diaAtual > vencDia) {
-      avisoVenc.innerText = "Atrasado";
-      avisoVenc.style.backgroundColor = "#dc0000";
-    } else if (diaAtual === vencDia) {
-      avisoVenc.innerText = "Vence hoje";
-      avisoVenc.style.backgroundColor = "";
-    } else {
-      avisoVenc.innerText = "Em dia";
-      avisoVenc.style.backgroundColor = "";
-    }
-  }
-
-  function fnCartaoSelecionado(
-    cor_cartao,
-    logo_bandeira,
-    bandeira,
-    nome_inst,
-    nome_impresso,
-    venc_dia,
-    id
-  ) {
-    const imgBandeira = dom.el(".aside-dados .img-bandeira img");
-    const nomeInst = dom.el(".aside-dados p");
-    const nomeImp = dom.el(".dados-cartao p");
-    const diaVenc = dom.el(".dados-cartao .vencimento p");
-
-    if (cartao) {
-      cartao.style.backgroundColor = cor_cartao;
-      cartao.setAttribute("data-id", id);
-
-      imgBandeira.src = logo_bandeira;
-      imgBandeira.alt = bandeira;
-      nomeInst.innerText = nome_inst;
-      nomeImp.innerText = nome_impresso;
-      diaVenc.innerText = venc_dia;
-      mostrarDados(id);
-    }
-  }
-
-  function selecionarCartao() {
-    if (btnSelecionar) {
-      btnSelecionar.disabled = true;
-
-      if (storageDados) {
-        btnSelecionar.disabled = false;
-
-        function handleClickOption(e) {
-          const targetOption = e.currentTarget;
-          const idOption = targetOption.dataset.option;
-
-          const {
-            nome_inst,
-            nome_impresso,
-            logo_bandeira,
-            bandeira,
-            venc_dia,
-            cor_cartao,
-          } = storageDados[idOption];
-          fnCartaoSelecionado(
-            cor_cartao,
-            logo_bandeira,
-            bandeira,
-            nome_inst,
-            nome_impresso,
-            venc_dia,
-            idOption
-          );
-          localStorage.setItem("id", idOption);
-        }
-
-        storageDados.forEach(
-          ({ cor_cartao, nome_inst, nome_impresso }, index) => {
-            const option = dom.create("div");
-            option.classList.add("option");
-
-            option.setAttribute("data-option", index);
-            option.innerHTML = `
-              <span style="background-color: ${cor_cartao};"></span>
-              <div>
-                <p>${nome_inst}</p>
-                <p>${nome_impresso}</p>
-              </div>
-              `;
-            select.appendChild(option);
-
-            /* Selecionar Cartão */
-            option.addEventListener("click", handleClickOption);
-          }
-        );
-
-        btnSelecionar.addEventListener("click", (e) => {
-          e.preventDefault();
-          select.classList.toggle(active);
-        });
-      }
-    }
-  }
-
-  function mostrarCartao() {
-    const id = JSON.parse(localStorage.getItem("id"));
-    if (id === 0 || id > 0) {
-      const {
-        nome_inst,
-        nome_impresso,
-        logo_bandeira,
-        bandeira,
-        venc_dia,
-        cor_cartao,
-      } = storageDados[id];
-      fnCartaoSelecionado(
-        cor_cartao,
-        logo_bandeira,
-        bandeira,
-        nome_inst,
-        nome_impresso,
-        venc_dia,
-        id
-      );
-    }
-  }
 
   function mostrarCard(btn, element, classe) {
     const button = dom.el(btn);
@@ -176,116 +29,157 @@ function Cartao() {
     }
   }
 
-  function fnTransacao(transacao, texto, valor, type) {
-    transacao.classList.add("box-transacao");
-    transacao.innerHTML = `
-      <div class="estabelecimento">
-        <span class="${type}"></span>
-        <p>${dom.firstLetter(texto)}</p>
-      </div>
-      <div class="valor">
-        <p>Valor</p>
-        ${
-          type === "neg"
-            ? `<span>-${dom.conversorMoeda(valor, "PT-BR", "BRL")}</span>`
-            : `<span>+${dom.conversorMoeda(valor, "PT-BR", "BRL")}</span>`
-        }
-      </div>
-    `;
-    return transacao;
+  function criarSelectBanco() {
+    if (storageDados) {
+      const btnCartao = dom.el(".btn-cartao");
+      const select = dom.el(".select");
+
+      if (btnCartao && select) {
+        btnCartao.disabled = false;
+        btnCartao.addEventListener("click", (e) => {
+          e.preventDefault();
+          select.classList.toggle(active);
+        });
+
+        storageDados.forEach(({ cor_cartao, nome_inst, nome_impresso }) => {
+          const option = dom.create("div");
+          option.classList.add("option");
+
+          option.innerHTML = `
+          <span style="background-color: ${cor_cartao};"></span>
+          <div>
+            <p>${nome_inst}</p>
+            <p>${nome_impresso}</p>
+          </div>
+        `;
+          select.appendChild(option);
+        });
+      }
+    }
   }
 
-  function adicionarConta() {
-    const adicionar = dom.el(".adicionar");
+  function cartaoSelecionado(dados) {
+    const cartao = dom.el(".aside-dados .card");
+    if (cartao) {
+      cartao.style.backgroundColor = dados.cor_cartao;
+      cartao.setAttribute("data-id", dados.id);
+
+      dom.el(".img-bandeira img").src = dados.logo_bandeira;
+      dom.el(".img-bandeira img").alt = dados.bandeira;
+      dom.el(".logo-cartao p").innerText = dados.nome_inst;
+      dom.el(".dados-cartao p").innerText = dados.nome_impresso;
+      dom.el(".vencimento p").innerText = dados.venc_dia;
+
+      dom.el(".adicionar-transacao").disabled = false;
+      dom.el(".adicionar-transacao span").style.display = "none";
+
+      dom.el("[data-cartao='instituicao'] p").innerText = dados.nome_inst;
+      dom.el("[data-cartao='vencimento'] p").innerText = dados.venc_dia;
+    }
+  }
+
+  function selecionarBanco() {
+    dom.els(".option").forEach((option, index) => {
+      option.addEventListener("click", () => {
+        dom.el(".aside-dados .card").setAttribute("data-cartao", index);
+        const dados = storageDados[index];
+        cartaoSelecionado(dados);
+        localStorage.setItem("id", index);
+      });
+    });
+  }
+
+  function mostrarCartaoAtivo() {
+    const id = JSON.parse(localStorage.getItem("id"));
+    if (id === 0 || id > 0) {
+      const dados = storageDados[id];
+      cartaoSelecionado(dados);
+    }
+  }
+
+  function criarTransacao(type, texto, valor) {
+    typeof valor === "string" ? valor.replace(",", ".") : valor;
+    const valorInput = dom.conversorMoeda(valor, "PT-BR", "BRL");
+
+    const transacao = dom.create("div");
+    transacao.classList.add("box-transacao");
+
+    transacao.innerHTML = `
+          <div>
+            <span data-traco="${type}"></span>
+            <p>${dom.firstLetter(texto)}</p>
+          </div>
+          <div>
+            <span>Valor</span>
+            <p>${type}${valorInput}</p>
+          </div>
+        `;
+    dom.el(".container-tabela").prepend(transacao);
+  }
+
+  function adicionarDespesa() {
     const estabelecimento = dom.el("#estabelecimento");
     const valor = dom.el("#valor");
 
-    if (adicionar) {
-      adicionar.addEventListener("click", (e) => {
-        e.preventDefault();
-        const idCartao = cartao ? cartao.dataset.id : "";
-        const boxTransacao = dom.create("div");
-        fnTransacao(boxTransacao, estabelecimento.value, valor.value, "neg");
-        containerTabela.appendChild(boxTransacao);
-
-        arrTransacao.push({
-          estabelecimento: estabelecimento.value,
-          valor: valor.value,
-          id: idCartao,
-        });
-        localStorage.setItem("transacao", JSON.stringify(arrTransacao));
+    dom.el(".adicionar").addEventListener("click", (e) => {
+      e.preventDefault();
+      criarTransacao("-", estabelecimento.value, valor.value);
+      arrTransacao.push({
+        estabelecimento: estabelecimento.value,
+        valor: valor.value,
+        type: "-",
+        id: dom.el(".aside-dados .card").dataset.id,
       });
-    }
+      localStorage.setItem("transacao", JSON.stringify(arrTransacao));
+    });
   }
 
   function adicionarDinheiro() {
-    const btnDepositar = dom.el(".btn-depositar");
     const inputDeposito = dom.el("#deposito");
-
-    if (btnDepositar) {
-      btnDepositar.addEventListener("click", (e) => {
-        e.preventDefault();
-        const boxTransacao = dom.create("div");
-        fnTransacao(
-          boxTransacao,
-          "Depósito realizado",
-          inputDeposito.value,
-          "pos"
-        );
-        containerTabela.prepend(boxTransacao);
-        arrSaldo.push(inputDeposito.value);
-        localStorage.setItem("saldo", JSON.stringify(arrSaldo));
-        inputDeposito.value = "";
-        inputDeposito.focus();
-        dom.el(".box-deposito p").innerText = "R$";
-      });
-    }
-
-    inputDeposito.addEventListener("keyup", (e) => {
-      const target = e.target;
-      const valorDep = dom.conversorMoeda(target.value, "PT-BR", "BRL");
-      dom.el(".box-deposito p").innerText = valorDep;
-    });
-  }
-
-  function mostrarConta() {
-    arrTransacao.forEach(({ estabelecimento, valor, id }) => {
-      if (id == cartao.dataset.id) {
-        const boxTransacao = dom.create("div");
-        containerTabela.prepend(boxTransacao);
-        fnTransacao(boxTransacao, estabelecimento, valor, "neg");
-      }
-
-      dom.els(".option").forEach((option) => {
-        option.addEventListener("click", () => {
-          dom.el("[data-loader='geral']").classList.add(active);
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
+    dom.el(".btn-depositar").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (Number(inputDeposito.value) !== 0) {
+        criarTransacao("+", "Depósito realizado", inputDeposito.value);
+        arrTransacao.push({
+          estabelecimento: "Depósito realizado",
+          valor: inputDeposito.value,
+          type: "+",
         });
-      });
+        localStorage.setItem("transacao", JSON.stringify(arrTransacao));
+      }
     });
   }
 
-  function mostrarDinheiro() {
-    arrSaldo.forEach((buy) => {
-      const boxTransacao = dom.create("div");
-      containerTabela.prepend(boxTransacao);
-      fnTransacao(boxTransacao, "Despósito realizado", buy, "pos");
+  function mostrarTransacao() {
+    arrTransacao.forEach(({ estabelecimento, valor, type }) =>
+      criarTransacao(type, estabelecimento, valor)
+    );
+  }
+
+  function despesaCartao() {
+    const idCartao = dom.el(".aside-dados .card").dataset.id;
+
+    arrTransacao.forEach(({ estabelecimento, valor, id }, index) => {
+      const boxTransacao = dom.els(".box-transacao")[index];
+      if (id) {
+        console.log(boxTransacao);
+      }
     });
   }
 
   function init() {
-    selecionarCartao();
-    mostrarCartao();
-    adicionarConta();
-    adicionarDinheiro();
-
-    mostrarConta();
-    mostrarDinheiro();
-
     mostrarCard(".adicionar-transacao", "transacao", "active");
     mostrarCard(".btn-saldo", "saldo", "active");
+
+    criarSelectBanco();
+    selecionarBanco();
+    mostrarCartaoAtivo();
+
+    adicionarDespesa();
+    adicionarDinheiro();
+
+    mostrarTransacao();
+    despesaCartao();
   }
 
   return { init };
