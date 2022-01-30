@@ -1,6 +1,5 @@
 import Dom from "./dom.js";
 import outsideEvent from "./outside-event.js";
-import debounce from "./debounce.js";
 
 const dom = Dom();
 
@@ -94,11 +93,14 @@ function Cartao() {
   }
 
   function mostrarCartaoAtivo() {
+    const cartaoAtivo = dom.el(".aside-dados .card");
     const id = JSON.parse(localStorage.getItem("id"));
     if (id === 0 || id > 0) {
-      const dados = storageDados[id];
-      dom.el(".aside-dados .card").setAttribute("data-id", id);
-      cartaoSelecionado(dados);
+      if (cartaoAtivo) {
+        const dados = storageDados[id];
+        cartaoAtivo.setAttribute("data-id", id);
+        cartaoSelecionado(dados);
+      }
     }
   }
 
