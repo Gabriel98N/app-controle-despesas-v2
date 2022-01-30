@@ -358,7 +358,7 @@
   gap: 1.25rem;
 }
 
-.box-transacao {
+[data-transacao] {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -370,21 +370,21 @@
   position: relative;
 }
 
-.box-transacao div {
+[data-transacao] div {
   flex: 1;
 }
 
-.box-transacao div span {
+[data-transacao] div span {
   color: var(--cor2);
 }
 
-.box-transacao p {
+[data-transacao] p {
   color: var(--cor1);
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.box-transacao div:nth-child(2) {
+[data-transacao] div:nth-child(2) {
   text-align: right;
 }
 
@@ -393,8 +393,8 @@
   text-transform: uppercase;
 }
 
-.neg,
-.pos {
+.despesa,
+.saldo {
   position: absolute;
   top: 0;
   left: 0;
@@ -403,12 +403,12 @@
   border-radius: var(--radius) 0 0 var(--radius);
 }
 
-.pos {
-  background-color: var(--green);
+.despesa {
+  background-color: var(--red);
 }
 
-.neg {
-  background-color: var(--red);
+.saldo {
+  background-color: var(--green);
 }
 
 .container-saldo {

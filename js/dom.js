@@ -45,6 +45,18 @@ function Dom() {
     return `${text.charAt(0).toUpperCase()}${text.substr(1).toLowerCase()}`;
   }
 
+  function eventListeners(el, evento, callback) {
+    const element = document.querySelectorAll(el);
+    element.forEach((item) => {
+      item.addEventListener(evento, callback);
+    });
+    return element;
+  }
+
+  function setStorage(key, stringObject) {
+    localStorage.setItem(key, JSON.stringify(stringObject));
+  }
+
   return {
     el,
     els,
@@ -56,6 +68,8 @@ function Dom() {
     toggleClass,
     conversorMoeda,
     firstLetter,
+    eventListeners,
+    setStorage,
   };
 }
 

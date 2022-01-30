@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="theme-color" content="#1a1927">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.min.css">
   <title>Controle financeiro</title>
 </head>
 
@@ -23,7 +23,7 @@
       <div></div>
       <div></div>
     </div>
-    <p>Carregando...</p>
+    <p>Alterando cartão...</p>
   </div>
 
   <div class="estrutura">
@@ -49,7 +49,6 @@
                         <i class="material-icons">payments</i>
                         <span>Depositar</span>
                       </a>
-                      <p>R$</p>
                     </div>
                   </div>
                 </div>
@@ -59,7 +58,7 @@
                 <p>--</p>
                 <span class="aviso-venc">atrasado</span>
               </div>
-              <div class="column3" data-cartao="total">
+              <div class="column3" data-cartao="despesa">
                 <h3>Total à pagar</h3>
                 <p>R$ 0,00</p>
               </div>
@@ -72,7 +71,7 @@
                   <form class="form-transacao">
                     <h2>Adicionar conta</h2>
                     <input type="text" name="estabelecimento" id="estabelecimento" required placeholder="Onde você comprou?" autocomplete="off">
-                    <input type="text" name="valor" id="valor" required placeholder="Valor" autocomplete="off">
+                    <input type="number" name="valor" id="valor" required placeholder="Valor" autocomplete="off">
                     <button class="adicionar" disabled>Adicionar</button>
                   </form>
                 </div>
